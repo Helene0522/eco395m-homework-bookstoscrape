@@ -3,14 +3,14 @@ from common import get_soup
 
 def extract_price(price_str):
     """Extracts the price from the string in the product description as a float."""
-    # 移除可能的特殊字符并提取数字部分
+    
     price = price_str.replace("Â", "").replace("£", "").strip()
     return float(price)
 
 
 def extract_stock(stock_str):
     """Extracts the count from the string in the product description as an int."""
-    stock = stock_str.split("(")[-1].split()[0]  # 提取数字部分
+    stock = stock_str.split("(")[-1].split()[0]  
     return int(stock)
 
 
@@ -18,7 +18,7 @@ def get_category(soup):
     """Extracts the category from the BeautifulSoup instance representing a book page as a string."""
     breadcrumb_tag = soup.find_all("ul", class_="breadcrumb")[0]
     a_tags = breadcrumb_tag.find_all("a")
-    # 第三个 <a> 标签是分类
+    
     return a_tags[2].text.strip()
 
 
@@ -33,7 +33,7 @@ def get_description(soup):
     description_tag = soup.find("meta", attrs={"name": "description"})
     if description_tag and description_tag.get("content", "").strip():
         return description_tag["content"].strip()
-    return None  # 没有描述时返回 None
+    return None  
 
 
 
@@ -67,7 +67,7 @@ def scrape_book(book_url):
         "description": get_description(soup),
     }
     product_info = get_product_information(soup)
-    book_data.update(product_info)  # 合并 product_information 数据
+    book_data.update(product_info)  
     
     return book_data
 
