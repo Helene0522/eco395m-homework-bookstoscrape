@@ -5,14 +5,14 @@ def scrape_page(num):
     url = f"http://books.toscrape.com/catalogue/page-{num}.html"
     soup = get_soup(url)
     
-    # 查找页面中书籍的链接，每个书籍在 <article class="product_pod"> 标签中
+    
     book_links = []
     articles = soup.find_all("article", class_="product_pod")
     
     for article in articles:
-        # 获取书籍页面的相对链接
+        
         link = article.find("a")["href"]
-        # 拼接成完整的书籍链接
+        
         full_link = "http://books.toscrape.com/catalogue/" + link
         book_links.append(full_link)
     
@@ -25,7 +25,7 @@ def scrape_all_pages():
 
     while True:
         book_links = scrape_page(page_num)
-        if not book_links:  # 当返回空列表时，说明没有更多页面
+        if not book_links:  
             break
         all_book_links.extend(book_links)
         page_num += 1
@@ -33,9 +33,9 @@ def scrape_all_pages():
     return all_book_links
 
 if __name__ == "__main__":
-    # code for testing
+    
 
-    # test scrape_page
+    
 
     page_3_actual_book_urls = [
         "http://books.toscrape.com/catalogue/slow-states-of-collapse-poems_960/index.html",
